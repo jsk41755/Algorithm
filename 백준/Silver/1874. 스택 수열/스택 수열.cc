@@ -1,31 +1,52 @@
-#include<stack>
 #include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
 
 int main() {
-    char sol[200050];
-    int solptr(0);
-    int n, x, max(0);
-    std::cin >> n;
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    std::stack<int> s;
-    while (n--) {
-        std::cin >> x;
-        if (x > max) {
-            for (int i = max + 1; i <= x; i++) {
-                s.push(i);
-                sol[solptr++] = '+';
-            }
-        }
-        else
-            if (s.top() != x) {
-                std::cout << "NO";
-                return 0;
-            }
-        s.pop();
-        sol[solptr++] = '-';
-        if (max < x) max = x;
-    }
-    for (int i = 0; i < solptr; i++) std::cout << sol[i] << "\n";
+	int N;
+	cin >> N;
+	vector<int> A(N, 0);
+	vector<char> resultV;
 
-    return 0;
+	for (int i = 0; i < N; i++) {
+		cin >> A[i];
+	}
+
+	stack<int> mystack;
+	int num = 1;
+	bool result = true;
+
+	for (int i = 0; i < A.size(); i++) {
+		int su = A[i];
+		if (su >= num) {
+			while (su >= num) {
+				mystack.push(num++);
+				resultV.push_back('+');
+			}
+			mystack.pop();
+			resultV.push_back('-');
+		}
+		else {
+			int n = mystack.top();
+			mystack.pop();
+			if (n > su) {
+				cout << "NO" << "\n";
+				result = false;
+				break;
+			}
+			else {
+				resultV.push_back('-');
+			}
+		}
+	}
+	if (result) {
+		for (int i = 0; i < resultV.size(); i++) {
+			cout << resultV[i] << "\n";
+		}
+	}
 }
