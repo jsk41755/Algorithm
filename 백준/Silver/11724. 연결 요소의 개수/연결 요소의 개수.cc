@@ -1,33 +1,47 @@
-#include <cstdio>
+#include <iostream>
 #include <vector>
 using namespace std;
-vector<int> a[1001];
-bool check[1001];
+
+vector<int> A[1001];
+vector<bool> ans;
+
 void dfs(int node) {
-    check[node] = true;
-    for (int i=0; i<a[node].size(); i++) {
-        int next = a[node][i];
-        if (check[next] == false) {
+    ans[node] = true;
+    for (int i = 0; i < A[node].size(); i++) {
+        int next = A[node][i];
+        if (ans[next] == false) {
             dfs(next);
         }
     }
 }
-int main() {
-    int n, m;
-    scanf("%d %d",&n,&m);
-    for (int i=0; i<m; i++) {
-        int u,v;
-        scanf("%d %d",&u,&v);
-        a[u].push_back(v);
-        a[v].push_back(u);
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int N, M;
+    cin >> N >> M;
+
+    ans.resize(N+1);
+
+    for (int i = 0; i < M; i++) {
+        int u, v;
+        cin >> u >> v;
+
+        A[u].push_back(v);
+        A[v].push_back(u);
     }
+
     int components = 0;
-    for (int i=1; i<=n; i++) {
-        if (check[i] == false) {
+    
+    for (int i = 1; i <= N; i++) {
+        if (ans[i] == false) {
             dfs(i);
-            components += 1;
+            components++;
         }
     }
-    printf("%d\n",components);
-    return 0;
+
+    cout << components << "\n";
 }
+
