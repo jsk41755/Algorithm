@@ -1,38 +1,54 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
 
 using namespace std;
 
-int n, s, tot;
-int a[1000001];
-int mn = 2000000000;
+int n, s;
+int a[100001];
+int arr[100001];
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-	cin >> n >> s;
+    cin >> n >> s;
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
-	}
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
 
-	int en = 0;
-	tot = a[0];
+    arr[0] = 0;
 
-	for (int st = 0; st < n; st++) {
-		while (en < n && tot < s) {
-			en++;
-			if (en != n) tot += a[en];
-		}
+    for (int i = 1; i <= n; i++) {
+        arr[i] = a[i - 1] + arr[i - 1];
+    }
 
-		if (en == n) break;
+    int cnt = 100001;
+    int fir = 0, sec = 0;
 
-		mn = min(mn, en - st + 1);
-		tot -= a[st];
+    while (true) {
+        if (fir == n + 1 || sec == n + 1 || fir > sec) break;
 
-	}
-	if (mn == 2000000000) mn = 0;
+        if (arr[sec] - arr[fir] >= s) {
+            int mn = sec - fir;
+            cnt = min(cnt, mn);
+            fir++;
+        }
+        else {
+            sec++;
+        }
+    }
 
-	cout << mn;
+    if (cnt == 100001) {
+        cout << 0;
+        return 0;
+    }
+
+    if (cnt == 0) {
+        cout << 1;
+        return 0;
+    }
+
+    cout << cnt;
+
+    return 0;
 }
