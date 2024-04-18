@@ -29,7 +29,7 @@ int main() {
 
 	long long temp = 0;
 	long long sol = 0;
-	while (l <= r && r <= n) {
+	while (r <= n) {
 		if (a[r].first - a[l].first < d) {
 			temp += a[r].second;
 			r++;
