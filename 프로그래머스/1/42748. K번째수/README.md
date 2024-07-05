@@ -1,10 +1,10 @@
 # [level 1] K번째수 - 42748 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42748) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42748?language=kotlin) 
 
 ### 성능 요약
 
-메모리: 4.11 MB, 시간: 0.01 ms
+메모리: 63 MB, 시간: 24.60 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 15일 16:10:09
+2024년 07월 05일 17:49:26
 
 ### 문제 설명
 
