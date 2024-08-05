@@ -1,56 +1,55 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int k, n;
-long _max = 0;
-long _min = 0;
-vector<int> arr;
+vector<int> v;
 
-long binarySearch() {
-	long mid = 0;
+long long l = 0, r = 0;
 
-	while (_min < _max) {
-		mid = (_max + _min) / 2;
+long long binary_search(long long st, long long en) {
 
-		int cnt = 0;
+    while (st < en) {
+        long long mid = (st + en) / 2;
+        int cnt = 0;
 
-		for (int i = 0; i < k; i++) {
-			cnt += arr[i] / mid;
-		}
+        for (int i = 0; i < k; i++) {
+            cnt += v[i] / mid;
+        }
 
-		if (cnt < n) {
-			_max = mid;
-		}
-		else {
-			_min = mid + 1;
-		}
-	}
+        if (cnt < n) {
+            en = mid;
+        }
+        else {
+            st = mid + 1;
+        }
+    }
 
-	return _min;
+    return st;
+
 }
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-	cin >> k >> n;
+    cin >> k >> n;
 
-	arr.resize(k);
+    for (int i = 0; i < k; i++) {
+        long long num = 0;
+        cin >> num;
+        v.push_back(num);
 
+        r = max(r, num);
+    }
 
-	for (int i = 0; i < k; i++) {
-		cin >> arr[i];
+    long long sol = binary_search(0, r+1);
 
-		if (_max < arr[i]) {
-			_max = arr[i];
-		}
-	}
+    cout << sol - 1;
 
-	_max++;
-
-	long sol = binarySearch();
-
-	cout << sol-1;
+    return 0;
 }
