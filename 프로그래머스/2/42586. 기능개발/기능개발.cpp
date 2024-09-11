@@ -1,65 +1,31 @@
 #include <string>
 #include <vector>
-#include <iostream>
-#include <queue>
 
 using namespace std;
 
-int n = 101;
-
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
     vector<int> answer;
-    
-    vector<int> test;
-    
-    for(int i=0; i<progresses.size(); i++){
-        int pro = 100-progresses[i];
-        int num = 0;
-        while(pro > 0){
-            pro -= speeds[i];
-            num++;
+    int n = progresses.size(); // 기능의 개수
+    int current = 0;           // 현재 배포할 기능의 인덱스
+
+    while (current < n) {
+        // 각 기능의 진행 상황 업데이트
+        for (int i = 0; i < n; i++) {
+            progresses[i] += speeds[i];
         }
-        test.push_back(num);
-    }
-    
-    for(int i=0; i<progresses.size(); i++){
-        for(int j=i+1; j < progresses.size(); j++){
-            if(test[i] > test[j]){
-                test[j] = test[i];
-            } else {
-                break;
-            }
+
+        // 이번에 배포할 수 있는 기능들의 수를 셉니다.
+        int count = 0;
+        while (current < n && progresses[current] >= 100) {
+            count++;
+            current++; // 배포된 기능의 인덱스 이동
         }
-    }
-    
-    answer;
-    queue<int> q;
-    
-    for(int i=0; i<test.size(); i++){
-        q.push(test[i]);
-    }
-    
-    int cnt = 0;
-    vector<int> ans (progresses.size(), 0);
-    
-    int num = q.front();
-    
-    for(int i=0; i<test.size(); i++){
-        if(num == test[i]){
-            ans[cnt]++;
-            q.pop();
-        } else{
-            cnt++;
-            num = q.front();
-            q.pop();
-            ans[cnt]++;
+
+        // 배포할 기능이 있다면 그 수를 저장
+        if (count > 0) {
+            answer.push_back(count);
         }
     }
-    
-    for(int i=0; i<cnt+1; i++){
-        cout << ans[i] << " ";
-        answer.push_back(ans[i]);
-    }
-    
+
     return answer;
 }
