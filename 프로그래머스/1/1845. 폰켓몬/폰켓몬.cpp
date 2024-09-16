@@ -6,18 +6,13 @@ int solution(vector<int> nums)
 {
     int answer = 0;
     
-    int cnt = nums.size() / 2 ;
+    int cnt = nums.size() / 2;
     
     sort(nums.begin(), nums.end());
     nums.erase(unique(nums.begin(), nums.end()), nums.end());
     
-    for(int i=0; i< nums.size(); i++){
-        answer++;
-    }
-    
-    if(cnt < answer){
-        answer = cnt;
-    }
+    if(nums.size() > cnt) answer = cnt;
+    else answer = nums.size();
     
     return answer;
 }
