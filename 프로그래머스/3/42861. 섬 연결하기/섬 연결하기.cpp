@@ -22,7 +22,7 @@ void Union(int a, int b){
 int solution(int n, vector<vector<int>> costs) {
     int answer = 0;
     
-    sort(costs.begin(), costs.end(), [](const vector<int> a, const vector<int> b) {
+    sort(costs.begin(), costs.end(), [](vector<int> a, vector<int> b) {
         return a[2] < b[2];
     });
     
