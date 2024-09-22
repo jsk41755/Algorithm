@@ -1,53 +1,41 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<map>
+
 using namespace std;
 
 int main() {
-	ios::sync_with_stdio;
-	cout.tie(NULL);
-	cin.tie(NULL);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-	int N, M;
-	cin >> N;
-	vector<int> A(N);
+	int n, m;
 
-	for (int i = 0; i < N; i++) {
-		cin >> A[i];
+	map<int, int> map;
+
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		int num;
+		cin >> num;
+
+		map[num]++;
 	}
 
-	sort(A.begin(), A.end());
-	cin >> M;
+	cin >> m;
 
-	for (int i = 0; i < M; i++) {
-		bool find = false;
-		int target;
-		cin >> target;
+	for (int i = 0; i < m; i++) {
+		int num;
 
-		int start = 0;
-		int end = A.size() - 1;
+		cin >> num;
 
-		while (start <= end) {
-			int midi = (start + end) / 2;
-			int midV = A[midi];
-
-			if (midV > target) {
-				end = midi - 1;
-			}
-			else if (midV < target) {
-				start = midi + 1;
-			}
-			else {
-				find = true;
-				break;
-			}
-		}
-
-		if (find == true) {
-			cout << 1 << "\n";
-		}
-		else {
-			cout << 0 << "\n";
-		}
+		if (map[num] == 0) cout << "0" << "\n";
+		else cout << "1" << '\n';
 	}
+
+
+
+
+	return 0;
 }
