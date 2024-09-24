@@ -1,39 +1,41 @@
-#include <iostream>
+#include<iostream>
 #include<vector>
 #include<algorithm>
+#include<string>
+
 using namespace std;
 
-vector<int> a;
-vector<int> seq;
-
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-    int n, cnt = 0;
-    cin >> n;
+	int n;
+	cin >> n;
+	vector<int> v;
+	for (int i = 0; i < n; i++) {
+		int num;
+		cin >> num;
 
-    a.resize(n);
-    seq.resize(n, 0);
+		v.push_back(num);
+	}
 
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
+	int dp[1001];
+	dp[0] = 1;
+	int cnt = 1;
+	
+	for (int i = 1; i < n; i++) {
+		int num = 0;
+		for (int j = 0; j < i; j++) {
+			if (v[j] < v[i]) {
+				num = max(num, dp[j]);
+			}
+		}
+		dp[i] = num + 1;
+		cnt = max(cnt, dp[i]);
+	}
 
-    for (int i = 0; i < n; i++) {
-        int tmp = 0;
+	cout << cnt;
 
-        for (int j = 0; j < i; j++) {
-            if (a[i] > a[j]) {
-                tmp = max(tmp, seq[j]);
-            }
-        }
-
-        seq[i] = tmp +1;
-        cnt = max(seq[i], cnt);
-    }
-
-    cout << cnt;
-
-    return 0;
+	return 0;
 }
