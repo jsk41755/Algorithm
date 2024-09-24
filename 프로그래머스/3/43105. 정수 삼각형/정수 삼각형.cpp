@@ -17,7 +17,7 @@ int solution(vector<vector<int>> triangle) {
     }
     
     for(int i=1; i<triangle.size()+1; i++){
-        for(int j=1; j<=i; j++){
+        for(int j=1; j<triangle[i-1].size()+1; j++){
             d[i][j] = a[i][j] + max(d[i-1][j-1], d[i-1][j]);
         }
     }
