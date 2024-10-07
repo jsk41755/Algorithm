@@ -1,53 +1,56 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
-int n, m;
-vector<int> v;
-int tree = 0;
+int arr[1000001];
 
-void bsearch(int start, int end) {
-    if (start > end) return;
-
-    int mid = (end + start) / 2;
-    long long sum = 0;
-
-    for (int i = 0; i < n; i++) {
-        int tmp = v[i] - mid;
-        if (tmp > 0) sum += tmp;
-    }
-
-    if (sum >= m) {
-        if (tree < mid) {
-            tree = mid;
-        }
-        bsearch(mid + 1, end);
-    }
-    else {
-        bsearch(start, mid - 1);
-    }
-}
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
-    cin >> n >> m;
+	int n, m;
+	cin >> n >> m;
 
-    int hMax = -1;
+	int mx = -1;
+	int mi = 2000000001;
 
-    for (int i = 0; i < n; i++) {
-        int num;
-        cin >> num;
-        v.push_back(num);
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+		mx = max(mx, arr[i]);
+		mi = min(mi, arr[i]);
+	}
 
-        if (hMax < num) hMax = num;
-    }
+	sort(arr, arr + n);
 
-    bsearch(0, hMax);
+	int l=0, r = mx;
 
-    cout << tree;
+	int cnt = 0;
 
-    return 0;
+	while (l <= r) {
+		int half = (r + l) / 2;
+		long long sum = 0;
+
+		for (int i = 0; i < n; i++) {
+			int tmp = arr[i] - half;
+			if (tmp > 0) sum += tmp;
+		}
+
+		if (sum >= m) {
+			if (cnt < half) {
+				cnt = half;
+			}
+			l = half + 1;
+		}
+		else {
+			r = half - 1;
+		}
+	}
+
+	cout << cnt;
+
+
+	return 0;
 }
