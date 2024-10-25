@@ -6,19 +6,19 @@ class Solution {
         
         HashMap<String, Integer> map = new HashMap<>();
         
-        // completion 배열의 이름을 카운트
-        for (String name : completion) {
-            map.put(name, map.getOrDefault(name, 0) + 1);
+        for(int i=0; i<completion.length; i++){
+            map.put(completion[i], map.getOrDefault(completion[i], 0)+1);
         }
         
-        // participant 배열의 이름을 카운트하며 확인
-        for (String name : participant) {
-            if (!map.containsKey(name) || map.get(name) == 0) {
-                answer = name;
-                break;
+        for(String s: participant){
+            if(!map.containsKey(s) || map.get(s) == 0){
+                answer = s;
+            } else {
+                map.put(s, map.get(s) - 1);
             }
-            map.put(name, map.get(name) - 1);
         }
+        
+        
         
         return answer;
     }
