@@ -4,7 +4,9 @@ from CAR_RENTAL_COMPANY_RENTAL_HISTORY
 where DATE_FORMAT(START_DATE, "%Y-%m") >= '2022-08' and DATE_FORMAT(START_DATE, "%Y-%m") <= '2022-10' and
     CAR_ID in (select CAR_ID
                from CAR_RENTAL_COMPANY_RENTAL_HISTORY
-               where start_date>="2022-08-01" and start_date<"2022-11-01" group by car_id having count(history_id)>4)
+               where DATE_FORMAT(START_DATE, "%Y-%m") >= '2022-08' and DATE_FORMAT(START_DATE, "%Y-%m") <= '2022-10'
+               group by car_id 
+               having count(history_id)>4)
 group by month, car_id
 having RECORDS > 0
 order by month, car_id desc;
