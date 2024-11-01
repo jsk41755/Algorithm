@@ -1,25 +1,50 @@
-public class Solution {
-  public int solution(int n, int[][] computers) {
-    int answer = 0;
-    boolean[] check = new boolean[n]; // n 갯수만큼 boolean 배열을 만들고 모든 요소를 false로 초기화
+import java.util.*;
 
-    for (int i = 0; i < n; i++) {
-      if (!check[i]) {
-        dfs(computers, i, check);
-        answer++;
-      }
+class Solution {
+    int[] arr;
+    
+    public int find(int a){
+        if(a == arr[a]) return a;
+        else return arr[a] = find(arr[a]);
     }
-
-    return answer;
-  }
-
- void dfs(int[][] computers, int i, boolean[] check) {
-    check[i] = true;
-
-    for (int j = 0; j < computers.length; j++) {
-      if (i != j && computers[i][j] == 1 && check[j] == false) {
-        dfs(computers, j, check);
-      }
+    
+    public void union(int a, int b){
+        int AA = find(a);
+        int BB = find(b);
+        
+        arr[AA] = BB;
     }
-  }
+    
+    
+    public int solution(int n, int[][] computers) {
+        int answer = 0;
+        
+        arr = new int[n+1];
+        
+        for(int i=1; i<=n; i++){
+            arr[i] = i;
+        }
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(i != j && computers[i][j] == 1){
+                    union(i+1, j+1);
+                }
+            }
+        }
+        
+        for(int i=0; i<n; i++){
+            find(i+1);
+        }
+        
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0; i<n; i++){
+            set.add(arr[i+1]);
+        }
+        
+        answer += set.size();
+        
+        
+        return answer;
+    }
 }
