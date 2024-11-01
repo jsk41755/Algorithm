@@ -35,12 +35,10 @@ int solution(int n, vector<vector<int>> costs) {
     int edges = 0;
     
     for(int i=0; i<costs.size(); i++){
-        if(edges == n-1) break;
         
         if(Find(costs[i][0]) != Find(costs[i][1])){
             Union(costs[i][0], costs[i][1]);
             answer += costs[i][2];
-            edges++;
         }
     }
     
