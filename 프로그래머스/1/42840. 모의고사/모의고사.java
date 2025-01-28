@@ -2,51 +2,44 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] answers) {
-        int[] a = {1, 2, 3, 4, 5};
-        int[] b = {2, 1, 2, 3, 2, 4, 2, 5,};
-        int[] c = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
         
-        int aa = 0, bb = 0, cc = 0;
+        int[] a = {1,2,3,4,5};
+        int[] b = {2,1,2,3,2,4,2,5};
+        int[] c = {3,3,1,1,2,2,4,4,5,5};
         
-        int m = 0;
-        
-        for(int i=0; i<answers.length; i++){
-            if(answers[i] == a[i%a.length]) aa++;
-            if(answers[i] == b[i%b.length]) bb++;
-            if(answers[i] == c[i%c.length]) cc++;
-            
-            m = Math.max(m, aa);
-            m = Math.max(m, bb);
-            m = Math.max(m, cc);
-            
-        }
-        
+        int aa = 0, bb = 0, cc= 0;
         int cnt = 0;
-        
-        if(aa == m){
-            cnt++;
+        for(int i=0; i<answers.length; i++){
+            if(a[i%a.length] == answers[i]) aa++;
+            if(b[i%b.length] == answers[i]) bb++;
+            if(c[i%c.length] == answers[i]) cc++;
         }
         
-        if(bb == m){
-            cnt++;
+        cnt = Math.max(cnt, aa);
+        cnt = Math.max(cnt, bb);
+        cnt = Math.max(cnt, cc);
+        System.out.println(cnt);
+        
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        if(cnt == aa){
+            list.add(1);
         }
         
-        if(cc == m){
-            cnt++;
+        if(cnt == bb){
+            list.add(2);
         }
         
-        int[] answer = new int[cnt];
-        cnt = 0;
-        if(aa == m){
-            answer[cnt++] = 1;
+        if(cnt == cc){
+            list.add(3);
         }
         
-        if(bb == m){
-            answer[cnt++] = 2;
-        }
         
-        if(cc == m){
-            answer[cnt++] = 3;
+        int[] answer = new int[list.size()];
+        
+        for(int i=0; i<list.size(); i++){
+            answer[i] = list.get(i);
         }
         
         return answer;
